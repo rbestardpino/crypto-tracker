@@ -9,7 +9,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import io.coinapi.rest.Config;
 import io.coinapi.rest.Exchange_rate;
 import io.coinapi.rest.REST_methods;
 
@@ -33,7 +32,10 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
             try {
                 Exchange_rate ethusd = api.get_exchange_rate("ETH", "USD");
-                message.setText("ETH/USD: " + ethusd.get_rate() + ". Time: " + ethusd.get_time());
+                Exchange_rate btcusd = api.get_exchange_rate("BTC", "USD");
+                message.setText("ETH/USD: " + ethusd.get_rate() + "BTC/UDS: " + btcusd.get_rate() + ". Time: "
+                        + ethusd.get_time());
+
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
