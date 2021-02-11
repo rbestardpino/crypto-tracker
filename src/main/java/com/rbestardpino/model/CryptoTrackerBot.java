@@ -2,6 +2,9 @@ package com.rbestardpino.model;
 
 import java.io.IOException;
 
+import com.rbestardpino.model.api.APIManager;
+import com.rbestardpino.model.api.domain.ExchangeRate;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -9,13 +12,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import io.coinapi.rest.Exchange_rate;
-import io.coinapi.rest.REST_methods;
-
 public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     private Logger log = LoggerFactory.getLogger(CryptoTrackerBot.class);
-    private REST_methods api;
+
+    private APIManager api;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -29,11 +30,11 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
 
-            api = new REST_methods("9619CF7F-A991-4149-8527-D8A856BE258F");
+            api = new APIManager("9619CF7F-A991-4149-8527-D8A856BE258F");
 
             try {
-                Exchange_rate ethusd = api.get_exchange_rate("ETH", "USD");
-                Exchange_rate btcusd = api.get_exchange_rate("BTC", "USD");
+                ExchangeRate ethusd = api.getExchangeRate("ETH", "USD");
+                ExchangeRate btcusd = api.getExchangeRate("BTC", "USD");
                 message.setText("ETH/USD: " + ethusd.get_rate() + ". BTC/UDS: " + btcusd.get_rate() + ". Time: "
                         + ethusd.get_time());
 

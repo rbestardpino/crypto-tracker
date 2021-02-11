@@ -6,6 +6,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch TestMain",
+      "request": "launch",
+      "mainClass": "com.rbestardpino.tezt.TestMain",
+      "projectName": "crypto-tracker"
+    },
+    {
+      "type": "java",
+      "name": "Launch Test",
+      "request": "launch",
+      "mainClass": "com.rbestardpino.Test",
+      "projectName": "crypto-tracker"
+    },
+    {
+      "type": "java",
       "name": "Launch Current File",
       "request": "launch",
       "mainClass": "${file}",

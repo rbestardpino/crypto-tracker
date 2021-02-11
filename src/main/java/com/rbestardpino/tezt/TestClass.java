@@ -1,4 +1,6 @@
-package com.rbestardpino.model;
+package com.rbestardpino.tezt;
+
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,18 +8,26 @@ import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class Chat {
+public class TestClass {
 
     @Getter
+    @Setter
     @Id
-    private final String id;
+    private String id;
 
     @Getter
     @Setter
     @Column
-    private String default_asset_id_quote = "USD";
+    private double price;
+
+    @Getter
+    @Setter
+    @Column
+    private Instant time;
 }

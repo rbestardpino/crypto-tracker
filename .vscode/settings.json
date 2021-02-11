@@ -5,19 +5,36 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
-  "[java]": {
-    "editor.defaultFormatter": "redhat.java"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[xml]": {
-    "editor.defaultFormatter": "redhat.vscode-xml"
-  },
   "debug.inlineValues": true,
   "debug.openDebug": "openOnFirstSessionStart",
-  "java.configuration.updateBuildConfiguration": "automatic"
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "ssl": true
+      },
+      "previewLimit": 50,
+      "server": "crypto-tracker-db-do-user-8645133-0.b.db.ondigitalocean.com",
+      "port": 25060,
+      "driver": "MySQL",
+      "name": "crypto-tracker",
+      "username": "doadmin",
+      "password": "t4bt31ekpqwc97iv",
+      "database": "defaultdb"
+    },
+    {
+      "pgOptions": {
+        "ssl": true
+      },
+      "previewLimit": 50,
+      "server": "db-postgresql-nyc1-97445-do-user-8645133-0.b.db.ondigitalocean.com",
+      "port": 25060,
+      "driver": "PostgreSQL",
+      "name": "test",
+      "database": "defaultdb",
+      "username": "doadmin",
+      "password": "bs41779ob5809wzr"
+    }
+  ]
 }
