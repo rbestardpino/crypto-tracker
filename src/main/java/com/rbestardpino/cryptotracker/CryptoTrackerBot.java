@@ -35,8 +35,8 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
             try {
                 ExchangeRate ethusd = api.getExchangeRate("ETH", "USD");
                 ExchangeRate btcusd = api.getExchangeRate("BTC", "USD");
-                message.setText("ETH/USD: " + ethusd.get_rate() + ". BTC/UDS: " + btcusd.get_rate() + ". Time: "
-                        + ethusd.get_time());
+                message.setText("ETH/USD: " + ethusd.getRate() + ". BTC/UDS: " + btcusd.getRate() + ". Time: "
+                        + ethusd.getTime());
 
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -57,6 +57,7 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return System.getenv("BOT_TOKEN");
+        // return System.getenv("BOT_TOKEN");
+        return "1569622449:AAE1WVZtOUVLvCekquT-1C7vL9vaU9Nc6LQ";
     }
 }
