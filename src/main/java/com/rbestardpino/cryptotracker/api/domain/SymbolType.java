@@ -1,4 +1,4 @@
-package com.rbestardpino.model.api.domain;
+package com.rbestardpino.cryptotracker.api.domain;
 
 /**
  * Symbol types list (enumeration of symbol_type output variable)

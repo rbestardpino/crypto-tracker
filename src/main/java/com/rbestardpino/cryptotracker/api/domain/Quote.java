@@ -1,4 +1,4 @@
-package com.rbestardpino.model.api.domain;
+package com.rbestardpino.cryptotracker.api.domain;
 
 import java.time.Instant;
 

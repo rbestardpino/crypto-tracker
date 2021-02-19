@@ -1,6 +1,6 @@
 package com.rbestardpino;
 
-import com.rbestardpino.model.CryptoTrackerBot;
+import com.rbestardpino.cryptotracker.CryptoTrackerBot;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

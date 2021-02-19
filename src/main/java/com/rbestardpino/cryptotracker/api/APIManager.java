@@ -1,20 +1,20 @@
-package com.rbestardpino.model.api;
+package com.rbestardpino.cryptotracker.api;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.time.Instant;
 
-import com.rbestardpino.model.api.domain.Asset;
-import com.rbestardpino.model.api.domain.Exchange;
-import com.rbestardpino.model.api.domain.ExchangeRate;
-import com.rbestardpino.model.api.domain.Period;
-import com.rbestardpino.model.api.domain.PeriodIdentifier;
-import com.rbestardpino.model.api.domain.Quote;
-import com.rbestardpino.model.api.domain.Quote_with_trade;
-import com.rbestardpino.model.api.domain.Symbol;
-import com.rbestardpino.model.api.domain.Taker_side;
-import com.rbestardpino.model.api.domain.Timedata;
-import com.rbestardpino.model.api.domain.Trade;
+import com.rbestardpino.cryptotracker.api.domain.Asset;
+import com.rbestardpino.cryptotracker.api.domain.Exchange;
+import com.rbestardpino.cryptotracker.api.domain.ExchangeRate;
+import com.rbestardpino.cryptotracker.api.domain.Period;
+import com.rbestardpino.cryptotracker.api.domain.PeriodIdentifier;
+import com.rbestardpino.cryptotracker.api.domain.Quote;
+import com.rbestardpino.cryptotracker.api.domain.Quote_with_trade;
+import com.rbestardpino.cryptotracker.api.domain.Symbol;
+import com.rbestardpino.cryptotracker.api.domain.Taker_side;
+import com.rbestardpino.cryptotracker.api.domain.Timedata;
+import com.rbestardpino.cryptotracker.api.domain.Trade;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

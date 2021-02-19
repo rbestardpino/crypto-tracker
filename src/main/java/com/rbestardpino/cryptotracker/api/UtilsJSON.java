@@ -1,4 +1,4 @@
-package com.rbestardpino.model.api;
+package com.rbestardpino.cryptotracker.api;
 
 import org.json.JSONObject;
 

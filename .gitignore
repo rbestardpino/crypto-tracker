@@ -7,3 +7,6 @@
 target/
 .factorypath
 .vscode/
+.idea/
+*.iml
+*.sql

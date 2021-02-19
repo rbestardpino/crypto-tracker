@@ -1,7 +1,6 @@
 package com.rbestardpino.tezt;
 
-import java.time.Duration;
-import java.util.List;
+import java.time.Instant;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,13 +14,15 @@ public class TestMain {
 
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        // em.persist(new TestClass("id1", 24, Instant.now()));
-        // em.persist(new TestClass("id2", 816235123, Instant.now()));
-        List<TestClass> clases = em.createQuery("from TestClass", TestClass.class).getResultList();
-        System.out.println(clases.get(0).getTime());
-        System.out.println(clases.get(1).getTime());
-        Duration delta = Duration.between(clases.get(0).getTime(), clases.get(1).getTime());
-        System.out.println(delta.toMinutes());
+        em.persist(new TestClass("id1", 24, Instant.now()));
+        em.persist(new TestClass("id2", 816235123, Instant.now()));
+        // List<TestClass> clases = em.createQuery("from TestClass",
+        // TestClass.class).getResultList();
+        // System.out.println(clases.get(0).getTime());
+        // System.out.println(clases.get(1).getTime());
+        // Duration delta = Duration.between(clases.get(0).getTime(),
+        // clases.get(1).getTime());
+        // System.out.println(delta.toMinutes());
         em.getTransaction().commit();
         em.close();
     }

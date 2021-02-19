@@ -1,4 +1,4 @@
-package com.rbestardpino.model.api.domain;
+package com.rbestardpino.cryptotracker.api.domain;
 
 /**
  * Defines all the elements of a taker_side, as described in <a href=

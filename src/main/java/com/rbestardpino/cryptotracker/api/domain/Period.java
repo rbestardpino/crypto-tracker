@@ -1,4 +1,4 @@
-package com.rbestardpino.model.api.domain;
+package com.rbestardpino.cryptotracker.api.domain;
 
 /**
  * Stores all the state for a period, as described in <a href=
