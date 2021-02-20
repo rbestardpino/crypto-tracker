@@ -1,6 +1,7 @@
 package com.rbestardpino;
 
 import com.rbestardpino.cryptotracker.CryptoTrackerBot;
+import com.rbestardpino.cryptotracker.PersistenceManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,13 @@ public class App {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
+    public static PersistenceManager database;
+
     public static void main(String[] args) {
         log.info("App started");
+
+        database = PersistenceManager.getInstance();
+        log.info("Database updated");
 
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);

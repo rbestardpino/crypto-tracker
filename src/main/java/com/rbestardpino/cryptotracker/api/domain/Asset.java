@@ -24,4 +24,7 @@ public class Asset {
 
 	@Column
 	private boolean type_is_crypto;
+
+	@Column
+	private double volume_1day_usd;
 }

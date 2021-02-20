@@ -3,6 +3,9 @@ package com.rbestardpino.cryptotracker.api.domain;
 import java.time.Instant;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Getter;
@@ -12,10 +15,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
 public class ExchangeRate {
 
 	@Id
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	@Column
 	private Instant time;
