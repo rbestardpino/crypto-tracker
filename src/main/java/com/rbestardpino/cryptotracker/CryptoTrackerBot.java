@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rbestardpino.App;
 import com.rbestardpino.cryptotracker.commands.AssetCommand;
 import com.rbestardpino.cryptotracker.commands.Command;
 import com.rbestardpino.cryptotracker.commands.CommandNotFound;
@@ -27,7 +26,7 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     public static Map<String, Command> commandsMap = new HashMap<String, Command>();
 
-    private Logger log = LoggerFactory.getLogger(CryptoTrackerBot.class);
+    private Logger logger = LoggerFactory.getLogger(CryptoTrackerBot.class);
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -36,7 +35,7 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
             String chatId = String.valueOf(update.getMessage().getChatId());
             String messageString = update.getMessage().getText();
 
-            log.info(update.getMessage().getFrom().getUserName() + " in " + chatId + ": " + messageString);
+            logger.info(update.getMessage().getFrom().getUserName() + " in " + chatId + ": " + messageString);
 
             App.database.createEntityManager();
             App.database.beginTransaction();
