@@ -12,12 +12,12 @@
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="12345678" /> -->
 
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://crypto-tracker-db-do-user-8645133-0.b.db.ondigitalocean.com:25060/defaultdb?ssl-mode=REQUIRED" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://crypto-tracker-database-do-user-8645133-0.b.db.ondigitalocean.com:25060/defaultdb?ssl-mode=REQUIRED" />
             <property name="javax.persistence.jdbc.user" value="doadmin" />
-            <property name="javax.persistence.jdbc.password" value="t4bt31ekpqwc97iv" />
+            <property name="javax.persistence.jdbc.password" value="k7nx2869xrh09vzk" />
 
             <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
         </properties>
