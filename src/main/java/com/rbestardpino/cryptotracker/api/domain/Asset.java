@@ -8,23 +8,25 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Setter
 @Getter
 @Entity
 public class Asset {
 
 	@Id
-	private String asset_id;
+	private String assetId;
 
 	@Column
 	private String name;
 
 	@Column
-	private boolean type_is_crypto;
+	private boolean crypto;
 
 	@Column
-	private double volume_1day_usd;
+	private double volume1DayUSD;
 }

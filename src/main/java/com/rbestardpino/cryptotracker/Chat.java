@@ -25,7 +25,7 @@ public class Chat {
     private String id;
 
     @Column
-    private String default_asset_id_quote = "USD";
+    private String defaultAssetIdQuote = "USD";
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();

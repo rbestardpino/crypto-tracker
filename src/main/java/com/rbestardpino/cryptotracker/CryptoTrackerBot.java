@@ -15,18 +15,17 @@ import com.rbestardpino.cryptotracker.commands.HelpCommand;
 import com.rbestardpino.cryptotracker.commands.MioCommand;
 import com.rbestardpino.cryptotracker.commands.StartCommand;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     public static Map<String, Command> commandsMap = new HashMap<String, Command>();
-
-    private Logger logger = LoggerFactory.getLogger(CryptoTrackerBot.class);
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -35,7 +34,7 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
             String chatId = String.valueOf(update.getMessage().getChatId());
             String messageString = update.getMessage().getText();
 
-            logger.info(update.getMessage().getFrom().getUserName() + " in " + chatId + ": " + messageString);
+            log.info(update.getMessage().getFrom().getUserName() + " in " + chatId + ": " + messageString);
 
             App.database.createEntityManager();
             App.database.beginTransaction();

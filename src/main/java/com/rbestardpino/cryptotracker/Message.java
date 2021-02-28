@@ -30,6 +30,6 @@ public class Message {
     private String message;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "chat_id")
+    @JoinColumn(name = "chatId")
     private Chat chat;
 }

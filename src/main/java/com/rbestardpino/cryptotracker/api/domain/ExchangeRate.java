@@ -11,8 +11,10 @@ import javax.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
+@ToString
 @Getter
 @Setter
 @Entity
@@ -26,18 +28,18 @@ public class ExchangeRate {
 	private Instant time;
 
 	@Column
-	private String asset_id_base;
+	private String assetIdBase;
 
 	@Column
-	private String asset_id_quote;
+	private String assetIdQuote;
 
 	@Column
 	private double rate;
 
-	public ExchangeRate(Instant time, String asset_id_base, String asset_id_quote, double rate) {
+	public ExchangeRate(Instant time, String assetIdBase, String assetIdQuote, double rate) {
 		this.time = time;
-		this.asset_id_base = asset_id_base;
-		this.asset_id_quote = asset_id_quote;
+		this.assetIdBase = assetIdBase;
+		this.assetIdQuote = assetIdQuote;
 		this.rate = rate;
 	}
 }
