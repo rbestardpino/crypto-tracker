@@ -14,6 +14,8 @@ import com.rbestardpino.cryptotracker.commands.ExchangeRateCommand;
 import com.rbestardpino.cryptotracker.commands.HelpCommand;
 import com.rbestardpino.cryptotracker.commands.MioCommand;
 import com.rbestardpino.cryptotracker.commands.StartCommand;
+import com.rbestardpino.cryptotracker.model.Chat;
+import com.rbestardpino.cryptotracker.model.Message;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -46,7 +48,7 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
             if (chat == null) {
                 chat = new Chat();
-                chat.setId(chatId);
+                chat.setChatId(chatId);
                 App.database.persist(chat);
             }
 

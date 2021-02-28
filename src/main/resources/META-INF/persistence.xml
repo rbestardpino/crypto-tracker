@@ -12,8 +12,8 @@
             <property name="javax.persistence.jdbc.password" value="k7nx2869xrh09vzk" />
 
             <property name="hibernate.format_sql" value="true" />
-            <property name="hibernate.show_sql" value="false" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
 
             <property name="hibernate.c3p0.min_size" value="5" />

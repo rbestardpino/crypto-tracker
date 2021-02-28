@@ -22,7 +22,7 @@ public class ExchangeRate {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long exchangeRateId;
 
 	@Column
 	private Instant time;

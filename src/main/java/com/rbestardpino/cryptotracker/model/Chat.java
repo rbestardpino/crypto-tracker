@@ -1,4 +1,4 @@
-package com.rbestardpino.cryptotracker;
+package com.rbestardpino.cryptotracker.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import lombok.Setter;
 public class Chat {
 
     @Id
-    private String id;
+    private String chatId;
 
     @Column
     private String defaultAssetIdQuote = "USD";

@@ -1,4 +1,4 @@
-package com.rbestardpino.cryptotracker;
+package com.rbestardpino.cryptotracker.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +24,7 @@ public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long messageId;
 
     @Column
     private String message;
