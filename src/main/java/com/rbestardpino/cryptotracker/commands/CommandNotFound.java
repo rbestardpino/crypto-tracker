@@ -3,6 +3,7 @@ package com.rbestardpino.cryptotracker.commands;
 import java.util.List;
 
 import com.rbestardpino.cryptotracker.CryptoTrackerBot;
+import com.rbestardpino.cryptotracker.model.Chat;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -12,10 +13,11 @@ public class CommandNotFound extends Command {
     private static CommandNotFound instance = null;
 
     @Override
-    public SendMessage createMessage(Update update, List<String> args) {
-        String chatId = String.valueOf(update.getMessage().getChatId());
+    public SendMessage createMessage(Update update, List<String> args, Chat chat) {
         SendMessage message = new SendMessage();
-        message.setChatId(chatId);
+        message.setChatId(chat.getChatId());
+        message.setParseMode("markdown");
+
         StringBuilder string = new StringBuilder();
         string.append("Unknown command\n")
                 .append("Here you have a list with _all_ available commands and their descriptions:\n\n");

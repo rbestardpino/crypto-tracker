@@ -7,26 +7,31 @@ import com.rbestardpino.cryptotracker.model.Chat;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class AssetCommand extends Command {
+public class SettingsCommand extends Command {
 
-    private static AssetCommand instance = null;
+    private static SettingsCommand instance = null;
 
     @Override
     public SendMessage createMessage(Update update, List<String> args, Chat chat) {
         SendMessage message = new SendMessage();
         message.setChatId(chat.getChatId());
-        message.setText("WIP");
+        message.setParseMode("markdown");
+
+        StringBuilder string = new StringBuilder();
+        string.append("WIP");
+
+        message.setText(string.toString());
         return message;
     }
 
-    private AssetCommand() {
-        name = "asset";
-        description = "Provides info about all or specified asset/s";
+    private SettingsCommand() {
+        name = "settings";
+        description = "Allow to view and change current chat settings";
     }
 
-    public static AssetCommand getInstance() {
+    public static SettingsCommand getInstance() {
         if (instance == null)
-            instance = new AssetCommand();
+            instance = new SettingsCommand();
         return instance;
     }
 }

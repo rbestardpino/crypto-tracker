@@ -3,6 +3,7 @@ package com.rbestardpino.cryptotracker.commands;
 import java.util.List;
 
 import com.rbestardpino.cryptotracker.CryptoTrackerBot;
+import com.rbestardpino.cryptotracker.model.Chat;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -12,10 +13,9 @@ public class HelpCommand extends Command {
     private static HelpCommand instance = null;
 
     @Override
-    public SendMessage createMessage(Update update, List<String> args) {
-        String chatId = String.valueOf(update.getMessage().getChatId());
+    public SendMessage createMessage(Update update, List<String> args, Chat chat) {
         SendMessage message = new SendMessage();
-        message.setChatId(chatId);
+        message.setChatId(chat.getChatId());
         message.setParseMode("markdown");
 
         StringBuilder string = new StringBuilder();
