@@ -23,7 +23,7 @@ public class ExchangeRateCommand extends Command {
         message.setChatId(chat.getChatId());
         message.setParseMode("markdown");
 
-        ExchangeRate er;
+        ExchangeRate exchangerate;
         args = args.stream().map(arg -> arg.toUpperCase()).collect(Collectors.toList());
 
         StringBuilder string = new StringBuilder();
@@ -32,11 +32,13 @@ public class ExchangeRateCommand extends Command {
             string.append("Use: `/exchangerate asset_id_base [asset_id_quote]`.\n\n");
             string.append("`asset_id_quote` is optional, default value is ");
             string.append(chat.getDefaultAssetIdQuote() + ".");
-            string.append(" You can change it with /settings.");
+            string.append(" You can change it with /settings.\n\n");
+            string.append("Examples: `/exchangerate BTC` or `/exchangerate BTC ETH`");
         } else if (args.size() == 1) {
             try {
-                er = api.getExchangeRate(args.get(0), chat.getDefaultAssetIdQuote());
-                string.append("1 " + er.getAssetIdBase() + " = " + er.getRate() + " " + er.getAssetIdQuote());
+                exchangerate = api.getExchangeRate(args.get(0), chat.getDefaultAssetIdQuote());
+                string.append("1 " + exchangerate.getAssetIdBase() + " = " + exchangerate.getRate() + " "
+                        + exchangerate.getAssetIdQuote());
             } catch (IOException e) {
                 e.printStackTrace();
                 string.append("Unknown error, try again.");
@@ -45,8 +47,9 @@ public class ExchangeRateCommand extends Command {
             }
         } else {
             try {
-                er = api.getExchangeRate(args.get(0), args.get(1));
-                string.append("1 " + er.getAssetIdBase() + " = " + er.getRate() + " " + er.getAssetIdQuote());
+                exchangerate = api.getExchangeRate(args.get(0), args.get(1));
+                string.append("1 " + exchangerate.getAssetIdBase() + " = " + exchangerate.getRate() + " "
+                        + exchangerate.getAssetIdQuote());
             } catch (IOException e) {
                 e.printStackTrace();
                 string.append("Unknown error, try again.");
