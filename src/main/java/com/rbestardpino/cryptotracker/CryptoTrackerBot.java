@@ -85,8 +85,8 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        // return System.getenv("BOT_TOKEN");
-        return "1633380461:AAEHiIgrKerxFp-kzee6JaYqizKpeFFF8Pc";
+        return System.getenv("BOT_TOKEN");
+        // return "1633380461:AAEHiIgrKerxFp-kzee6JaYqizKpeFFF8Pc";
     }
 
     public CryptoTrackerBot() {

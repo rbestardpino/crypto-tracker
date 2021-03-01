@@ -30,7 +30,7 @@ public class AssetCommand extends Command {
 
         if (args.isEmpty()) {
             string.append("Use: `/asset asset_id*`.\n\n");
-            string.append("`asset_id` can be one or multiple asset ids/\n\n");
+            string.append("`asset_id` can be one or multiple asset ids.\n\n");
             string.append("Examples: `/asset BTC` or `/asset BTC ETH`");
         } else {
             for (String arg : args) {

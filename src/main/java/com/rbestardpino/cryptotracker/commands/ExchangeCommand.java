@@ -30,7 +30,7 @@ public class ExchangeCommand extends Command {
 
         if (args.isEmpty()) {
             string.append("Use: `/exchange exchange_id*`.\n\n");
-            string.append("`exchange_id` can be one or multiple exchange ids/\n\n");
+            string.append("`exchange_id` can be one or multiple exchange ids.\n\n");
             string.append("Examples: `/exchange binance` or `/exchange binance coinbase`");
         } else {
             for (String arg : args) {
