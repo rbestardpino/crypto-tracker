@@ -29,4 +29,7 @@ public class Asset {
 
 	@Column
 	private double volume1DayUSD;
+
+	@Column
+	private double priceUSD;
 }

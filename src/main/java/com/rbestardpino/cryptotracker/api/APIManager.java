@@ -114,7 +114,8 @@ public class APIManager implements Closeable {
 			String name = array.getJSONObject(i).optString("name", null);
 			boolean type_is_crypto = array.getJSONObject(i).getInt("type_is_crypto") != 0;
 			double volume_1day_usd = array.getJSONObject(i).getDouble("volume_1day_usd");
-			result.add(new Asset(asset_id, name, type_is_crypto, volume_1day_usd));
+			double price_usd = array.getJSONObject(i).getDouble("price_usd");
+			result.add(new Asset(asset_id, name, type_is_crypto, volume_1day_usd, price_usd));
 		}
 		return result;
 	}
@@ -132,8 +133,9 @@ public class APIManager implements Closeable {
 		String name = object.optString("name", null);
 		boolean type_is_crypto = object.getInt("type_is_crypto") != 0;
 		double volume_1day_usd = object.getDouble("volume_1day_usd");
+		double price_usd = object.getDouble("price_usd");
 
-		return new Asset(asset_id, name, type_is_crypto, volume_1day_usd);
+		return new Asset(asset_id, name, type_is_crypto, volume_1day_usd, price_usd);
 	}
 
 	public List<ExchangeRate> getAllExchangeRates(String asset_id_base) throws IOException {

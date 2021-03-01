@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class ExchangeCommand extends Command {
 
     private static ExchangeCommand instance = null;
+
     private APIManager api = APIManager.getInstance();
 
     @Override
@@ -52,7 +53,7 @@ public class ExchangeCommand extends Command {
 
     private ExchangeCommand() {
         name = "exchange";
-        description = "Provides info about all or specified exchange/s";
+        description = "Provides info about specified exchange/s";
     }
 
     public static ExchangeCommand getInstance() {
