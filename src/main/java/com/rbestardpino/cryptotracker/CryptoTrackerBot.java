@@ -12,7 +12,7 @@ import com.rbestardpino.cryptotracker.commands.CommandNotFound;
 import com.rbestardpino.cryptotracker.commands.ExchangeCommand;
 import com.rbestardpino.cryptotracker.commands.ExchangeRateCommand;
 import com.rbestardpino.cryptotracker.commands.HelpCommand;
-import com.rbestardpino.cryptotracker.commands.MioCommand;
+import com.rbestardpino.cryptotracker.commands.CustomCommand;
 import com.rbestardpino.cryptotracker.commands.SettingsCommand;
 import com.rbestardpino.cryptotracker.commands.StartCommand;
 import com.rbestardpino.cryptotracker.model.Chat;
@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CryptoTrackerBot extends TelegramLongPollingBot {
 
-    public static Map<String, Command> commandsMap = new HashMap<String, Command>();
+    public static Map<String, Command> commandsMap = new HashMap<>();
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -49,7 +49,7 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
             if (chat == null) {
                 chat = new Chat();
-                chat.setChatId(chatId);
+                chat.setId(chatId);
                 App.database.persist(chat);
             }
 
@@ -60,20 +60,21 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
             App.database.commit();
             App.database.close();
 
-            List<String> args = new ArrayList<String>(Arrays.asList(messageString.split("\\s+")));
+            List<String> args = new ArrayList<>(Arrays.asList(messageString.split("\\s+")));
             String commandName = args.get(0).substring(1);
             args.remove(0);
 
             SendMessage sendMessage;
             if (commandsMap.containsKey(commandName)) {
-                sendMessage = commandsMap.get(commandName).createMessage(update, args, chat);
+                sendMessage = commandsMap.get(commandName).createMessage(args, chat);
             } else
-                sendMessage = CommandNotFound.getInstance().createMessage(update, args, chat);
+                sendMessage = CommandNotFound.getInstance().createMessage(args, chat);
 
             try {
                 execute(sendMessage);
+                log.info("Bot: " + sendMessage.getText());
             } catch (TelegramApiException e) {
-                e.printStackTrace();
+                log.error(e.getMessage(), e);
             }
         }
     }
@@ -85,8 +86,8 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return System.getenv("BOT_TOKEN");
-        // return "1633380461:AAEHiIgrKerxFp-kzee6JaYqizKpeFFF8Pc";
+        // return System.getenv("BOT_TOKEN");
+        return "1633380461:AAEHiIgrKerxFp-kzee6JaYqizKpeFFF8Pc";
     }
 
     public CryptoTrackerBot() {
@@ -97,7 +98,7 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
         commandsList.add(ExchangeCommand.getInstance());
         commandsList.add(ExchangeRateCommand.getInstance());
         commandsList.add(SettingsCommand.getInstance());
-        commandsList.add(MioCommand.getInstance());
+        commandsList.add(CustomCommand.getInstance());
 
         for (Command command : commandsList)
             commandsMap.put(command.name, command);

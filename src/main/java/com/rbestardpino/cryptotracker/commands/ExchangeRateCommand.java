@@ -9,22 +9,21 @@ import com.rbestardpino.cryptotracker.api.domain.ExchangeRate;
 import com.rbestardpino.cryptotracker.model.Chat;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class ExchangeRateCommand extends Command {
 
     private static ExchangeRateCommand instance = null;
 
-    private APIManager api = APIManager.getInstance();
+    private final APIManager api = APIManager.getInstance();
 
     @Override
-    public SendMessage createMessage(Update update, List<String> args, Chat chat) {
+    public SendMessage createMessage(List<String> args, Chat chat) {
         SendMessage message = new SendMessage();
-        message.setChatId(chat.getChatId());
+        message.setChatId(chat.getId());
         message.setParseMode("markdown");
 
         ExchangeRate exchangerate;
-        args = args.stream().map(arg -> arg.toUpperCase()).collect(Collectors.toList());
+        args = args.stream().map(String::toUpperCase).collect(Collectors.toList());
 
         StringBuilder string = new StringBuilder();
 

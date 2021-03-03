@@ -9,22 +9,21 @@ import com.rbestardpino.cryptotracker.api.domain.Asset;
 import com.rbestardpino.cryptotracker.model.Chat;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class AssetCommand extends Command {
 
     private static AssetCommand instance = null;
 
-    private APIManager api = APIManager.getInstance();
+    private final APIManager api = APIManager.getInstance();
 
     @Override
-    public SendMessage createMessage(Update update, List<String> args, Chat chat) {
+    public SendMessage createMessage(List<String> args, Chat chat) {
         SendMessage message = new SendMessage();
-        message.setChatId(chat.getChatId());
+        message.setChatId(chat.getId());
         message.setParseMode("markdown");
 
         Asset asset;
-        args = args.stream().map(arg -> arg.toUpperCase()).collect(Collectors.toList());
+        args = args.stream().map(String::toUpperCase).collect(Collectors.toList());
 
         StringBuilder string = new StringBuilder();
 
@@ -37,14 +36,14 @@ public class AssetCommand extends Command {
                 try {
                     asset = api.getAsset(arg);
                     string.append("*" + asset.getName() + "*");
-                    string.append(" (" + asset.getAssetId() + ")\n");
+                    string.append(" (" + asset.getId() + ")\n");
                     string.append("Volume: " + asset.getVolume1DayUSD() + " USD\n");
                     string.append("Price: " + asset.getPriceUSD() + " USD\n\n");
                 } catch (IOException e) {
                     e.printStackTrace();
                     string.append("Unknown error, try again.");
                 } catch (RuntimeException e) {
-                    string.append("`" + arg + "` is an unknown exchange, you might have misspelled it.\n\n");
+                    string.append("`" + arg + "` is an unknown asset, you might have misspelled it.\n\n");
                 }
             }
         }

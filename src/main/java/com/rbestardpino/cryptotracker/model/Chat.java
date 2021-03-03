@@ -22,13 +22,16 @@ import lombok.Setter;
 public class Chat {
 
     @Id
-    private String chatId;
+    private String id;
 
     @Column
     private String defaultAssetIdQuote = "USD";
 
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<Message> messages = new ArrayList<>();
+
+    @Column
+    private String customCommand = null;
 
     public void addMessage(Message message) {
         messages.add(message);

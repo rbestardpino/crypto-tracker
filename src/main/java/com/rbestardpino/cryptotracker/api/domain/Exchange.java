@@ -19,7 +19,7 @@ import lombok.ToString;
 public class Exchange {
 
 	@Id
-	private String exchangeId;
+	private String id;
 
 	@Column
 	private String name;

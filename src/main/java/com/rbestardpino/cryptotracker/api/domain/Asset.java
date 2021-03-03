@@ -19,7 +19,7 @@ import lombok.ToString;
 public class Asset {
 
 	@Id
-	private String assetId;
+	private String id;
 
 	@Column
 	private String name;

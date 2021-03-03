@@ -24,12 +24,12 @@ public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long messageId;
+    private long id;
 
     @Column
     private String message;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "chatId")
+    @JoinColumn(name = "id")
     private Chat chat;
 }
