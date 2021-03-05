@@ -1,4 +1,4 @@
-package com.rbestardpino.cryptotracker;
+package com.rbestardpino.cryptotracker.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,17 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rbestardpino.cryptotracker.App;
 import com.rbestardpino.cryptotracker.commands.AssetCommand;
 import com.rbestardpino.cryptotracker.commands.Command;
 import com.rbestardpino.cryptotracker.commands.CommandNotFound;
+import com.rbestardpino.cryptotracker.commands.CustomCommand;
 import com.rbestardpino.cryptotracker.commands.ExchangeCommand;
 import com.rbestardpino.cryptotracker.commands.ExchangeRateCommand;
 import com.rbestardpino.cryptotracker.commands.HelpCommand;
-import com.rbestardpino.cryptotracker.commands.CustomCommand;
 import com.rbestardpino.cryptotracker.commands.SettingsCommand;
 import com.rbestardpino.cryptotracker.commands.StartCommand;
-import com.rbestardpino.cryptotracker.model.Chat;
-import com.rbestardpino.cryptotracker.model.Message;
+import com.rbestardpino.cryptotracker.utils.PropertiesReader;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -86,8 +86,8 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        // return System.getenv("BOT_TOKEN");
-        return "1633380461:AAEHiIgrKerxFp-kzee6JaYqizKpeFFF8Pc";
+        // return new PropertiesReader("private.properties").read("bot_token");
+        return new PropertiesReader("private.properties").read("test_bot_token");
     }
 
     public CryptoTrackerBot() {

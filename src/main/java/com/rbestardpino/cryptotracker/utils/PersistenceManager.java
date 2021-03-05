@@ -1,4 +1,4 @@
-package com.rbestardpino.cryptotracker;
+package com.rbestardpino.cryptotracker.utils;
 
 import java.util.List;
 
@@ -21,6 +21,10 @@ public class PersistenceManager {
 
     public void persist(Object entity) {
         em.persist(entity);
+    }
+
+    public void merge(Object entity) {
+        em.merge(entity);
     }
 
     public void remove(Object entity) {

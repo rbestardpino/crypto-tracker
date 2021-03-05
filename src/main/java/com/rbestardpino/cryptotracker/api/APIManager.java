@@ -2,13 +2,16 @@ package com.rbestardpino.cryptotracker.api;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rbestardpino.cryptotracker.App;
 import com.rbestardpino.cryptotracker.api.domain.Asset;
 import com.rbestardpino.cryptotracker.api.domain.Exchange;
 import com.rbestardpino.cryptotracker.api.domain.ExchangeRate;
+import com.rbestardpino.cryptotracker.utils.PropertiesReader;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +35,7 @@ public class APIManager implements Closeable {
 
 	public static APIManager getInstance() {
 		if (instance == null)
-			instance = new APIManager("9619CF7F-A991-4149-8527-D8A856BE258F");
+			instance = new APIManager(new PropertiesReader("private.properties").read("coinapi_token"));
 		return instance;
 	}
 
@@ -83,25 +86,54 @@ public class APIManager implements Closeable {
 			String exchange_id = array.getJSONObject(i).getString("exchange_id");
 			String name = array.getJSONObject(i).getString("name");
 			String website = array.getJSONObject(i).getString("website");
-			result.add(new Exchange(exchange_id, name, website));
+			result.add(new Exchange(exchange_id, name, website, Instant.now()));
 		}
 		return result;
 	}
 
 	public Exchange getExchange(String exchange_id) throws IOException {
-		String json = request("/v1/exchanges/" + exchange_id);
 
-		JSONArray array = new JSONArray(json);
-		if (array.length() == 0)
-			return null;
+		App.database.createEntityManager();
+		App.database.beginTransaction();
 
-		JSONObject object = array.getJSONObject(0);
+		Exchange exchange = App.database.find(Exchange.class, exchange_id);
 
-		exchange_id = object.getString("exchange_id");
-		String name = object.getString("name");
-		String website = object.getString("website");
+		if (exchange == null) {
+			String json = request("/v1/exchanges/" + exchange_id);
 
-		return new Exchange(exchange_id, name, website);
+			JSONArray array = new JSONArray(json);
+			if (array.length() == 0)
+				return null;
+
+			JSONObject object = array.getJSONObject(0);
+
+			exchange_id = object.getString("exchange_id");
+			String name = object.getString("name");
+			String website = object.getString("website");
+
+			exchange = new Exchange(exchange_id, name, website, Instant.now());
+			App.database.persist(exchange);
+		}
+
+		if (Duration.between(exchange.getTime(), Instant.now()).toDays() > 60) {
+			String json = request("/v1/exchanges/" + exchange_id);
+
+			JSONArray array = new JSONArray(json);
+			if (array.length() == 0)
+				return null;
+
+			JSONObject object = array.getJSONObject(0);
+
+			exchange.setName(object.getString("name"));
+			exchange.setWebsite(object.getString("website"));
+			exchange.setTime(Instant.now());
+
+			App.database.merge(exchange);
+		}
+		App.database.commit();
+		App.database.close();
+
+		return exchange;
 	}
 
 	public List<Asset> getAllAssets() throws IOException {
@@ -115,27 +147,56 @@ public class APIManager implements Closeable {
 			boolean type_is_crypto = array.getJSONObject(i).getInt("type_is_crypto") != 0;
 			double volume_1day_usd = array.getJSONObject(i).getDouble("volume_1day_usd");
 			double price_usd = array.getJSONObject(i).getDouble("price_usd");
-			result.add(new Asset(asset_id, name, type_is_crypto, volume_1day_usd, price_usd));
+			result.add(new Asset(asset_id, name, type_is_crypto, volume_1day_usd, price_usd, Instant.now()));
 		}
 		return result;
 	}
 
 	public Asset getAsset(String asset_id) throws IOException {
-		String json = request("/v1/assets/" + asset_id);
+		App.database.createEntityManager();
+		App.database.beginTransaction();
 
-		JSONArray array = new JSONArray(json);
-		if (array.length() == 0)
-			return null;
+		Asset asset = App.database.find(Asset.class, asset_id);
 
-		JSONObject object = array.getJSONObject(0);
+		if (asset == null) {
+			String json = request("/v1/assets/" + asset_id);
 
-		asset_id = object.getString("asset_id");
-		String name = object.optString("name", null);
-		boolean type_is_crypto = object.getInt("type_is_crypto") != 0;
-		double volume_1day_usd = object.getDouble("volume_1day_usd");
-		double price_usd = object.getDouble("price_usd");
+			JSONArray array = new JSONArray(json);
+			if (array.length() == 0)
+				return null;
 
-		return new Asset(asset_id, name, type_is_crypto, volume_1day_usd, price_usd);
+			JSONObject object = array.getJSONObject(0);
+
+			asset_id = object.getString("asset_id");
+			String name = object.optString("name", null);
+			boolean type_is_crypto = object.getInt("type_is_crypto") != 0;
+			double volume_1day_usd = object.getDouble("volume_1day_usd");
+			double price_usd = object.getDouble("price_usd");
+			asset = new Asset(asset_id, name, type_is_crypto, volume_1day_usd, price_usd, Instant.now());
+			App.database.persist(asset);
+		}
+
+		if (Duration.between(asset.getTime(), Instant.now()).toMinutes() > 3) {
+			String json = request("/v1/assets/" + asset_id);
+
+			JSONArray array = new JSONArray(json);
+			if (array.length() == 0)
+				return null;
+
+			JSONObject object = array.getJSONObject(0);
+
+			asset.setName(object.optString("name", null));
+			asset.setCrypto(object.getInt("type_is_crypto") != 0);
+			asset.setVolume1DayUSD(object.getDouble("volume_1day_usd"));
+			asset.setPriceUSD(object.getDouble("price_usd"));
+			asset.setTime(Instant.now());
+
+			App.database.merge(asset);
+		}
+		App.database.commit();
+		App.database.close();
+
+		return asset;
 	}
 
 	public List<ExchangeRate> getAllExchangeRates(String asset_id_base) throws IOException {
@@ -174,5 +235,4 @@ public class APIManager implements Closeable {
 		double rate = object.getDouble("rate");
 		return new ExchangeRate(Instant.parse(object.getString("time")), asset_id_base, asset_id_quote, rate);
 	}
-
 }

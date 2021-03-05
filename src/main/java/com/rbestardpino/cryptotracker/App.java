@@ -1,5 +1,8 @@
 package com.rbestardpino.cryptotracker;
 
+import com.rbestardpino.cryptotracker.model.CryptoTrackerBot;
+import com.rbestardpino.cryptotracker.utils.PersistenceManager;
+
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;

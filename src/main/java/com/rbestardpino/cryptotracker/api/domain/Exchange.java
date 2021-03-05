@@ -1,5 +1,7 @@
 package com.rbestardpino.cryptotracker.api.domain;
 
+import java.time.Instant;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,4 +28,7 @@ public class Exchange {
 
 	@Column
 	private String website;
+
+	@Column
+	private Instant time;
 }

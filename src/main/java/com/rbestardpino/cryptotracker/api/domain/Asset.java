@@ -1,5 +1,7 @@
 package com.rbestardpino.cryptotracker.api.domain;
 
+import java.time.Instant;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,4 +34,7 @@ public class Asset {
 
 	@Column
 	private double priceUSD;
+
+	@Column
+	private Instant time;
 }

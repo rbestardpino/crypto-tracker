@@ -2,8 +2,8 @@ package com.rbestardpino.cryptotracker.commands;
 
 import java.util.List;
 
-import com.rbestardpino.cryptotracker.CryptoTrackerBot;
 import com.rbestardpino.cryptotracker.model.Chat;
+import com.rbestardpino.cryptotracker.model.CryptoTrackerBot;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 

@@ -11,3 +11,5 @@ target/
 *.iml
 *.sql
 logs/
+src/main/resources/private.properties
+tmp/

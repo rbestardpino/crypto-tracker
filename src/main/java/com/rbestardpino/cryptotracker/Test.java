@@ -1,10 +1,9 @@
 package com.rbestardpino.cryptotracker;
 
-import lombok.extern.slf4j.Slf4j;
+import java.time.Instant;
 
-@Slf4j
 public class Test {
     public static void main(String[] args) {
-        log.info("msg");
+        System.out.println(Instant.now());
     }
 }
