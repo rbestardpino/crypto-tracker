@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rbestardpino.cryptotracker.App;
+import com.rbestardpino.cryptotracker.commands.AllExchangesCommand;
 import com.rbestardpino.cryptotracker.commands.AssetCommand;
 import com.rbestardpino.cryptotracker.commands.Command;
 import com.rbestardpino.cryptotracker.commands.CommandNotFound;
@@ -99,6 +100,7 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
         commandsList.add(ExchangeRateCommand.getInstance());
         commandsList.add(SettingsCommand.getInstance());
         commandsList.add(CustomCommand.getInstance());
+        commandsList.add(AllExchangesCommand.getInstance());
 
         for (Command command : commandsList)
             commandsMap.put(command.name, command);

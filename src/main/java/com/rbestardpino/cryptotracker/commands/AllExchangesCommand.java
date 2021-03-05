@@ -6,9 +6,9 @@ import com.rbestardpino.cryptotracker.model.Chat;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
-public class SettingsCommand extends Command {
+public class AllExchangesCommand extends Command {
 
-    private static SettingsCommand instance = null;
+    private static AllExchangesCommand instance = null;
 
     @Override
     public SendMessage createMessage(List<String> args, Chat chat) {
@@ -18,14 +18,14 @@ public class SettingsCommand extends Command {
         return SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build();
     }
 
-    private SettingsCommand() {
-        name = "settings";
-        description = "Allow to view and change current chat settings";
+    private AllExchangesCommand() {
+        name = "allexchanges";
+        description = "Provide info about all exchanges";
     }
 
-    public static SettingsCommand getInstance() {
+    public static AllExchangesCommand getInstance() {
         if (instance == null)
-            instance = new SettingsCommand();
+            instance = new AllExchangesCommand();
         return instance;
     }
 }

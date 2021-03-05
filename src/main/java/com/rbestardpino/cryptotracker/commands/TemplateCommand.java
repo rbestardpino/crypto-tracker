@@ -12,15 +12,10 @@ public class TemplateCommand extends Command {
 
     @Override
     public SendMessage createMessage(List<String> args, Chat chat) {
-        SendMessage message = new SendMessage();
-        message.setChatId(chat.getId());
-        message.setParseMode("markdown");
-
         StringBuilder string = new StringBuilder();
         string.append("WIP");
 
-        message.setText(string.toString());
-        return message;
+        return SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build();
     }
 
     private TemplateCommand() {

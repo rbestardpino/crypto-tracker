@@ -18,10 +18,6 @@ public class ExchangeRateCommand extends Command {
 
     @Override
     public SendMessage createMessage(List<String> args, Chat chat) {
-        SendMessage message = new SendMessage();
-        message.setChatId(chat.getId());
-        message.setParseMode("markdown");
-
         ExchangeRate exchangerate;
         args = args.stream().map(String::toUpperCase).collect(Collectors.toList());
 
@@ -58,8 +54,7 @@ public class ExchangeRateCommand extends Command {
             }
         }
 
-        message.setText(string.toString());
-        return message;
+        return SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build();
     }
 
     private ExchangeRateCommand() {

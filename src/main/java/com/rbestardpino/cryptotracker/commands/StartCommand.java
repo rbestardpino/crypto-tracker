@@ -13,10 +13,6 @@ public class StartCommand extends Command {
 
     @Override
     public SendMessage createMessage(List<String> args, Chat chat) {
-        SendMessage message = new SendMessage();
-        message.setChatId(chat.getId());
-        message.setParseMode("markdown");
-
         StringBuilder string = new StringBuilder();
         string.append("*Welcome to Crypto Tracker!*\n")
                 .append("Here you have a list with _all_ available commands and their descriptions:\n\n");
@@ -25,9 +21,7 @@ public class StartCommand extends Command {
             string.append("/" + cmd.name + ": _" + cmd.description + "_\n");
         }
 
-        message.setText(string.toString());
-
-        return message;
+        return SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build();
     }
 
     private StartCommand() {
