@@ -73,6 +73,13 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.22</version>
     </dependency>
+    <!-- Chart image generator -->
+    <dependency>
+      <groupId>io.quickchart</groupId>
+      <artifactId>QuickChart</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
