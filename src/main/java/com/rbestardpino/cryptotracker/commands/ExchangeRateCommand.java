@@ -8,7 +8,9 @@ import com.rbestardpino.cryptotracker.api.APIManager;
 import com.rbestardpino.cryptotracker.api.domain.ExchangeRate;
 import com.rbestardpino.cryptotracker.model.Chat;
 
+import com.rbestardpino.cryptotracker.model.CryptoTrackerBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class ExchangeRateCommand extends Command {
 
@@ -17,7 +19,7 @@ public class ExchangeRateCommand extends Command {
     private final APIManager api = APIManager.getInstance();
 
     @Override
-    public SendMessage createMessage(List<String> args, Chat chat) {
+    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
         ExchangeRate exchangerate;
         args = args.stream().map(String::toUpperCase).collect(Collectors.toList());
 
@@ -54,7 +56,9 @@ public class ExchangeRateCommand extends Command {
             }
         }
 
-        return SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build();
+        bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build());
+
+        return string.toString();
     }
 
     private ExchangeRateCommand() {

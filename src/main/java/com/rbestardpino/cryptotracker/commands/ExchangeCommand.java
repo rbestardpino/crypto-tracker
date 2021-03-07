@@ -8,8 +8,13 @@ import com.rbestardpino.cryptotracker.api.APIManager;
 import com.rbestardpino.cryptotracker.api.domain.Exchange;
 import com.rbestardpino.cryptotracker.model.Chat;
 
+import com.rbestardpino.cryptotracker.model.CryptoTrackerBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ExchangeCommand extends Command {
 
     private static ExchangeCommand instance = null;
@@ -17,7 +22,7 @@ public class ExchangeCommand extends Command {
     private final APIManager api = APIManager.getInstance();
 
     @Override
-    public SendMessage createMessage(List<String> args, Chat chat) {
+    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
         Exchange exchange;
         args = args.stream().map(String::toUpperCase).collect(Collectors.toList());
 
@@ -34,15 +39,18 @@ public class ExchangeCommand extends Command {
                     string.append("*" + exchange.getName() + "*\n");
                     string.append(exchange.getWebsite() + "\n\n");
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage(), e);
                     string.append("Unknown error, try again.");
                 } catch (RuntimeException e) {
+                    log.error(e.getMessage(), e);
                     string.append("`" + arg + "` is an unknown exchange, you might have misspelled it.\n\n");
                 }
             }
         }
 
-        return SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build();
+        bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build());
+
+        return string.toString();
     }
 
     private ExchangeCommand() {

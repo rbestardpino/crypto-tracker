@@ -20,7 +20,6 @@ import com.rbestardpino.cryptotracker.commands.StartCommand;
 import com.rbestardpino.cryptotracker.utils.PropertiesReader;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -61,19 +60,27 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
             App.database.commit();
             App.database.close();
 
-            List<String> args = new ArrayList<>(Arrays.asList(messageString.split("\\s+")));
-            String commandName = args.get(0).substring(1);
-            args.remove(0);
+            dispatch(messageString, chat);
+        }
+    }
 
-            SendMessage sendMessage;
-            if (commandsMap.containsKey(commandName)) {
-                sendMessage = commandsMap.get(commandName).createMessage(args, chat);
-            } else
-                sendMessage = CommandNotFound.getInstance().createMessage(args, chat);
+    private void dispatch(String messageString, Chat chat) {
+        List<String> args = new ArrayList<>(Arrays.asList(messageString.split("\\s+")));
+        String commandName = args.get(0).substring(1);
+        args.remove(0);
 
+        String sentMessage;
+        if (commandsMap.containsKey(commandName)) {
             try {
-                execute(sendMessage);
-                log.info("Bot: " + sendMessage.getText());
+                sentMessage = commandsMap.get(commandName).execute(args, chat, this);
+                log.info("Bot: " + sentMessage);
+            } catch (TelegramApiException e) {
+                log.error(e.getMessage(), e);
+            }
+        } else {
+            try {
+                sentMessage = CommandNotFound.getInstance().execute(args, chat, this);
+                log.info("Bot: " + sentMessage);
             } catch (TelegramApiException e) {
                 log.error(e.getMessage(), e);
             }
@@ -82,12 +89,11 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "Crypto_TrackerBot";
+        return new PropertiesReader("private.properties").read("test_bot_username");
     }
 
     @Override
     public String getBotToken() {
-        // return new PropertiesReader("private.properties").read("bot_token");
         return new PropertiesReader("private.properties").read("test_bot_token");
     }
 

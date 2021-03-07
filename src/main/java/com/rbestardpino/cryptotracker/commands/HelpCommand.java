@@ -6,13 +6,14 @@ import com.rbestardpino.cryptotracker.model.Chat;
 import com.rbestardpino.cryptotracker.model.CryptoTrackerBot;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class HelpCommand extends Command {
 
     private static HelpCommand instance = null;
 
     @Override
-    public SendMessage createMessage(List<String> args, Chat chat) {
+    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
         StringBuilder string = new StringBuilder();
 
         if (args.isEmpty()) {
@@ -32,7 +33,9 @@ public class HelpCommand extends Command {
             }
         }
 
-        return SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build();
+        bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build());
+
+        return string.toString();
     }
 
     private HelpCommand() {
