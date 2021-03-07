@@ -13,7 +13,7 @@ public class StartCommand extends Command {
     private static StartCommand instance = null;
 
     @Override
-    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
+    public void execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
         StringBuilder string = new StringBuilder();
         string.append("*Welcome to Crypto Tracker!*\n")
                 .append("Here you have a list with _all_ available commands and their descriptions:\n\n");
@@ -23,8 +23,6 @@ public class StartCommand extends Command {
         }
 
         bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build());
-
-        return string.toString();
     }
 
     private StartCommand() {

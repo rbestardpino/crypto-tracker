@@ -13,7 +13,7 @@ public class HelpCommand extends Command {
     private static HelpCommand instance = null;
 
     @Override
-    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
+    public void execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
         StringBuilder string = new StringBuilder();
 
         if (args.isEmpty()) {
@@ -34,8 +34,6 @@ public class HelpCommand extends Command {
         }
 
         bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build());
-
-        return string.toString();
     }
 
     private HelpCommand() {

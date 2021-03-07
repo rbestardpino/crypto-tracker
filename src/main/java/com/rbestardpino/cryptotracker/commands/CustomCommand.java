@@ -15,32 +15,22 @@ public class CustomCommand extends Command {
     private static CustomCommand instance = null;
 
     @Override
-    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
+    public void execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
 
-        if (chat.getCustomCommand() == null) {
-            SendMessage message = new SendMessage();
-            message.setChatId(chat.getId());
-            message.setParseMode("markdown");
-            message.setText("You haven't set up your custom command yet. You can configure it in /settings.");
-            bot.execute(message);
-            return message.getText();
-        }
+        if (chat.getCustomCommand() == null)
+            bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown")
+                    .text("You haven't set up your custom command yet. You can configure it in /settings.").build());
 
         List<String> customArgs = new ArrayList<>(Arrays.asList(chat.getCustomCommand().split("\\s+")));
         String customCommandName = args.get(0).substring(1);
         customArgs.remove(0);
 
-        if (CryptoTrackerBot.commandsMap.get(customCommandName) == null) {
-            SendMessage message = new SendMessage();
-            message.setChatId(chat.getId());
-            message.setParseMode("markdown");
-            message.setText(
-                    "The command you configured as your custom does not exist, you could have mispelled it. Change it in /settings.");
-            bot.execute(message);
-            return message.getText();
-        }
+        if (CryptoTrackerBot.commandsMap.get(customCommandName) == null)
+            bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(
+                    "The command you configured as your custom does not exist, you could have mispelled it. Change it in /settings.")
+                    .build());
 
-        return CryptoTrackerBot.commandsMap.get(customCommandName).execute(customArgs, chat, bot);
+        CryptoTrackerBot.commandsMap.get(customCommandName).execute(customArgs, chat, bot);
     }
 
     private CustomCommand() {

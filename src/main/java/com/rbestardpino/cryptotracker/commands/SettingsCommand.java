@@ -13,13 +13,11 @@ public class SettingsCommand extends Command {
     private static SettingsCommand instance = null;
 
     @Override
-    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
+    public void execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
         StringBuilder string = new StringBuilder();
         string.append("WIP");
 
         bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build());
-
-        return string.toString();
     }
 
     private SettingsCommand() {

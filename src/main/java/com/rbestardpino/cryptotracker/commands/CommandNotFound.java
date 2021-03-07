@@ -13,7 +13,7 @@ public class CommandNotFound extends Command {
     private static CommandNotFound instance = null;
 
     @Override
-    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
+    public void execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
         StringBuilder string = new StringBuilder();
         string.append("Unknown command\n")
                 .append("Here you have a list with _all_ available commands and their descriptions:\n\n");
@@ -23,8 +23,6 @@ public class CommandNotFound extends Command {
         }
 
         bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build());
-
-        return string.toString();
     }
 
     private CommandNotFound() {

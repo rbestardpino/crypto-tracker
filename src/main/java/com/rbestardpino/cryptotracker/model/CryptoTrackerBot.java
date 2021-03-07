@@ -69,18 +69,17 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
         String commandName = args.get(0).substring(1);
         args.remove(0);
 
-        String sentMessage;
         if (commandsMap.containsKey(commandName)) {
             try {
-                sentMessage = commandsMap.get(commandName).execute(args, chat, this);
-                log.info("Bot: " + sentMessage);
+                commandsMap.get(commandName).execute(args, chat, this);
+                log.info("Message answered");
             } catch (TelegramApiException e) {
                 log.error(e.getMessage(), e);
             }
         } else {
             try {
-                sentMessage = CommandNotFound.getInstance().execute(args, chat, this);
-                log.info("Bot: " + sentMessage);
+                CommandNotFound.getInstance().execute(args, chat, this);
+                log.info("Message answered");
             } catch (TelegramApiException e) {
                 log.error(e.getMessage(), e);
             }

@@ -27,7 +27,7 @@ public class AllExchangesCommand extends Command {
     private final APIManager api = APIManager.getInstance();
 
     @Override
-    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
+    public void execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
 
         Message message = bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown")
                 .text("This might take a few seconds...").build());
@@ -54,8 +54,6 @@ public class AllExchangesCommand extends Command {
 
         bot.execute(SendDocument.builder().chatId(chat.getId()).parseMode("markdown").document(new InputFile(file))
                 .build());
-
-        return string.toString();
     }
 
     private AllExchangesCommand() {

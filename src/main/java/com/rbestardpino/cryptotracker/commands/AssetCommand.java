@@ -22,7 +22,7 @@ public class AssetCommand extends Command {
     private final APIManager api = APIManager.getInstance();
 
     @Override
-    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
+    public void execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
         Asset asset;
         args = args.stream().map(String::toUpperCase).collect(Collectors.toList());
 
@@ -51,8 +51,6 @@ public class AssetCommand extends Command {
         }
 
         bot.execute(SendMessage.builder().chatId(chat.getId()).parseMode("markdown").text(string.toString()).build());
-
-        return string.toString();
     }
 
     private AssetCommand() {

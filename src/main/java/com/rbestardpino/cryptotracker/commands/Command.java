@@ -12,7 +12,6 @@ public abstract class Command {
     public String name;
     public String description;
 
-    public String execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
-        return null;
+    public void execute(List<String> args, Chat chat, CryptoTrackerBot bot) throws TelegramApiException {
     }
 }
