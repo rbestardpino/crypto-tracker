@@ -86,13 +86,33 @@ public class APIManager implements Closeable {
 			String exchange_id = array.getJSONObject(i).getString("exchange_id");
 			String name = array.getJSONObject(i).getString("name");
 			String website = array.getJSONObject(i).getString("website");
-			result.add(new Exchange(exchange_id, name, website, Instant.now()));
+			double volume_1mth_usd = array.getJSONObject(i).getDouble("volume_1mth_usd");
+
+			result.add(new Exchange(exchange_id, name, website, volume_1mth_usd, Instant.now()));
 		}
+
+		App.database.createEntityManager();
+		App.database.beginTransaction();
+		for (Exchange exchange : result) {
+			Exchange foundExchange = App.database.find(Exchange.class, exchange.getId());
+			if (foundExchange == null) {
+				App.database.persist(exchange);
+			} else {
+				foundExchange.setName(exchange.getName());
+				foundExchange.setWebsite(exchange.getWebsite());
+				foundExchange.setVolume1MthUSD(exchange.getVolume1MthUSD());
+				foundExchange.setTime(Instant.now());
+				App.database.merge(foundExchange);
+			}
+			System.out.println(exchange);
+		}
+		App.database.commit();
+		App.database.close();
+
 		return result;
 	}
 
 	public Exchange getExchange(String exchange_id) throws IOException {
-
 		App.database.createEntityManager();
 		App.database.beginTransaction();
 
@@ -110,8 +130,9 @@ public class APIManager implements Closeable {
 			exchange_id = object.getString("exchange_id");
 			String name = object.getString("name");
 			String website = object.getString("website");
+			double volume_1mth_usd = object.getDouble("volume_1mth_usd");
 
-			exchange = new Exchange(exchange_id, name, website, Instant.now());
+			exchange = new Exchange(exchange_id, name, website, volume_1mth_usd, Instant.now());
 			App.database.persist(exchange);
 		}
 
@@ -127,6 +148,7 @@ public class APIManager implements Closeable {
 			exchange.setName(object.getString("name"));
 			exchange.setWebsite(object.getString("website"));
 			exchange.setTime(Instant.now());
+			exchange.setVolume1MthUSD(object.getDouble("volume_1mth_usd"));
 
 			App.database.merge(exchange);
 		}

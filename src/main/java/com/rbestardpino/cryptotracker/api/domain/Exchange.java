@@ -30,5 +30,8 @@ public class Exchange {
 	private String website;
 
 	@Column
+	private double volume1MthUSD;
+
+	@Column
 	private Instant time;
 }
