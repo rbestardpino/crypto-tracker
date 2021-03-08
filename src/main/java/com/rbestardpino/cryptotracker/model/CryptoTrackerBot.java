@@ -72,14 +72,12 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
         if (commandsMap.containsKey(commandName)) {
             try {
                 commandsMap.get(commandName).execute(args, chat, this);
-                log.info("Message answered");
             } catch (TelegramApiException e) {
                 log.error(e.getMessage(), e);
             }
         } else {
             try {
                 CommandNotFound.getInstance().execute(args, chat, this);
-                log.info("Message answered");
             } catch (TelegramApiException e) {
                 log.error(e.getMessage(), e);
             }
@@ -88,12 +86,12 @@ public class CryptoTrackerBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return new PropertiesReader("private.properties").read("test_bot_username");
+        return new PropertiesReader("private.properties").read("bot_username");
     }
 
     @Override
     public String getBotToken() {
-        return new PropertiesReader("private.properties").read("test_bot_token");
+        return new PropertiesReader("private.properties").read("bot_token");
     }
 
     public CryptoTrackerBot() {
